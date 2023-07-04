@@ -40,18 +40,14 @@
                 <template v-slot:item.user.name="{ item }">
                     <span class="text-caption">{{ item.value.user.name }}</span>
                 </template>
+                <template v-slot:item.itemDescription="{ item }">
+                    <span class="text-caption">{{ item.value.itemDescription }}</span>
+                </template>
                 <template v-slot:item.priceNaira="{ item }">
                     <span class="text-caption">₦{{ utils.formatMoney(item.value.priceNaira) }}</span>
                 </template>
                 <template v-slot:item.status="{ item }">
-                    <v-chip
-                        class="ma-2 text-white"
-                        size="small"
-                        variant="elevated"
-                        :color="utils.getStatusColor(item.value.status)"
-                        >
-                        {{ item.value.status }}
-                    </v-chip>
+                    <span :class="`text-caption font-weight-bold text-${utils.getStatusColor(item.value.status)}`">{{ item.value.status }}</span>
                 </template>
                 <template v-slot:item.view="{ item }">
                     <GiftcardTradeDetail :order="item.value"></GiftcardTradeDetail>
@@ -61,7 +57,7 @@
                 </template>
                 <template v-slot:item.verified="{ item, index }">
                     <v-row>
-                        <ConfirmationDialog
+                        <ConfirmationDialog v-if="item.value.status === 'pending'"
                             button_class="me-2 text-none"
                             button_prepend_icon="mdi-clock"
                             button_variant="flat"
@@ -77,7 +73,7 @@
                             content="Are you sure? this process cannot be reversed"
                             >
                         </ConfirmationDialog>
-                        <ConfirmationDialog
+                        <ConfirmationDialog v-if="item.value.status === 'processing'"
                             button_class="me-2 text-none"
                             button_prepend_icon="mdi-check"
                             button_variant="flat"
@@ -93,7 +89,7 @@
                             content="Are you sure? this process cannot be reversed"
                             >
                         </ConfirmationDialog>
-                        <RejectTradeDialog
+                        <RejectTradeDialog v-if="item.value.status === 'processing'"
                             button_class="me-2 text-none"
                             button_prepend_icon="mdi-close"
                             button_variant="flat"
@@ -173,6 +169,10 @@
           {
             title: 'Name (fullname)',
             key: 'user.name',
+          },
+          { 
+            title: 'Type', 
+            key: 'itemDescription' 
           },
           { 
             title: 'Amount', 

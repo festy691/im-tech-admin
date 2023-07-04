@@ -10,13 +10,13 @@
                 <v-icon icon="mdi-account-circle" size="x-large"></v-icon>
             </v-avatar>
 
-        <h4>Giftcard Setup</h4>
+        <h4>E-Currency Setup</h4>
         </v-sheet>
 
         <v-card variant="outlined" class="px-4 py-8">
             <v-row>
                 <v-col cols="6">
-                    <AddCategory></AddCategory>
+                    <AddCrypto></AddCrypto>
                 </v-col>
                 <v-col cols="12" md="6">
                     <v-text-field
@@ -48,18 +48,17 @@
                         ></v-img>
                     </v-avatar>
                 </template>
+
+                <template v-slot:item.priceNaira="{ item }">
+                    <span class="text-caption">₦{{ utils.formatMoney(item.value.priceNaira) }}</span>
+                </template>
                 <template v-slot:item.date="{ item }">
                     <span class="text-caption">{{ utils.formatDate(item.value.date) }}</span>
                 </template>
 
                 <template v-slot:item.update="{ item }">
-                    <update-category :item="item.value" />
+                    <update-crypto :item="item.value" />
                 </template>
-
-                <template v-slot:item.view="{ item }">
-                    <v-btn size="small" color="blue-grey" variant="flat" class="text-white" @click="openCountryList(item.value._id)">View</v-btn>
-                </template>
-
             </v-data-table>
         </v-card>
 
@@ -83,16 +82,16 @@
   import { VDataTable } from 'vuetify/labs/VDataTable';
   import { Utils } from '@/js/Utils';
   import {APIRequest} from "@/js/APIRequest";
-  import UpdateCategory from '@/components/UpdateCategory.vue'
-  import AddCategory from '@/components/AddCategory.vue'
+  import UpdateCrypto from '@/components/UpdateCrypto.vue'
+  import AddCrypto from '@/components/AddCrypto.vue'
   import Loader from '@/components/Loader.vue';
 
   export default {
-    name: 'Setup',
+    name: 'CryptoSetup',
     components: {
         VDataTable,
-        UpdateCategory,
-        AddCategory,
+        UpdateCrypto,
+        AddCrypto,
         Loader
     },
     data: () => ({
@@ -100,7 +99,7 @@
         processEvent: "process_setup_event",
         completeEvent: "complete_setup_event",
         rejectEvent: "reject_setup_event",
-        updateEvent: "update_setup_giftcard",
+        updateEvent: "update-crypto",
         utils: new Utils(),
         snackbar: false,
         text: ``,
@@ -119,8 +118,11 @@
             title: 'Name',
             key: 'name',
           },
+          {
+            title: 'Rate',
+            key: 'priceNaira',
+          },
           { title: 'Date added', key: 'date' },
-          { title: '', key: 'view' },
           { title: 'Update', key: 'update' },
         ],
         giftcardCategories: [],
@@ -141,7 +143,7 @@
             if(sessionStorage.getItem('login')){
                 let http = new APIRequest();
                 let self = this;
-                let url = `${http.baseUrl}/giftcard-categories`;
+                let url = `${http.baseUrl}/cryptos`;
                 self.isLoading = true;
 
                 http.get(url, (err,data)=> {

@@ -117,15 +117,17 @@ export default {
   created() {
     this.items = [
         { title: 'Dashboard', icon: 'mdi-home-city', route: '/', count: 0 },
-        { title: 'Giftcard trades', icon: 'mdi-gift', route: '/giftcard-trades', count: 0 },
+        { title: 'Giftcard Trades', icon: 'mdi-gift', route: '/giftcard-trades', count: 0 },
+        { title: 'E-Currency Trades', icon: 'mdi-bitcoin', route: '/crypto-trades', count: 0 },
        // { title: 'Crypto trades', icon: 'mdi-bitcoin', route: '/crypto-trades', count: 3 },
         { title: 'Withdraw Request', icon: 'mdi-currency-usd', route: '/withdrawal', count: 0 },
         { title: 'Trade History', icon: 'mdi-history', route: '/trade-history', count: 0 },
-        { title: 'Setup', icon: 'mdi-cog', route: '/setup' },
+        { title: 'Giftcard Setup', icon: 'mdi-cog', route: '/setup' },
+        { title: 'E-Currency Setup', icon: 'mdi-cog', route: '/crypto-setup' },
         { title: 'Messages', icon: 'mdi-message', route: '/messages'},
         this.isAdmin ? { title: 'Users', icon: 'mdi-account-group-outline', route: this.isAdmin ? '/users' : '/no-permission', count: 0 } : {},
         this.isAdmin ? { title: 'Pending Verification', icon: 'mdi-card-account-details', route: this.isAdmin ? '/verification' : '/no-permission', count: 0 } : {},
-        this.isAdmin ? { title: 'Admin activities', icon: 'mdi-map-marker', route: this.isAdmin ? '/activities' : '/no-permission', count: 0 } : {},
+        this.isAdmin ? { title: 'Admin Activities', icon: 'mdi-map-marker', route: this.isAdmin ? '/activities' : '/no-permission', count: 0 } : {},
         // { title: 'News', icon: 'mdi-newspaper', route: '/news'},
         // { title: 'Account Statement', icon: 'mdi-cash-multiple', route: '/account-statement', count: 0 },
     ];
@@ -170,8 +172,9 @@ export default {
               self.isLoading = false;
 
               self.items[1].count = data.salesCount;
-              self.items[7].count = data.kycCount;
-              self.items[2].count = data.requestCount;
+              self.items[2].count = data.cryptoSalesCount || 0;
+              if(self.isAdmin) self.items[9].count = data.kycCount;
+              self.items[3].count = data.requestCount;
             });
         }
     },

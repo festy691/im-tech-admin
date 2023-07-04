@@ -125,6 +125,28 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/crypto-setup',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/crypto-setup',
+        name: 'CryptoSetup',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/CryptoSetup.vue'),
+      },
+    ],
+  },
+  {
+    path: '/crypto-trades',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/crypto-trades',
+        name: 'CryptoTradingHistory',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/CryptoTradingHistory.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({

@@ -207,7 +207,7 @@ export default {
         }
         self.isLoading = false;
         self.text = data.success;
-        this.emitter.emit("update-giftcard", data);
+        this.emitter.emit("update_setup_giftcard", data);
         self.snackbar = true;
       });
     },

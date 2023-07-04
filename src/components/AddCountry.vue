@@ -251,7 +251,7 @@ export default {
         }
         self.isLoading = false;
         self.text = data.success;
-        this.emitter.emit("update-giftcard", data);
+        this.emitter.emit("update_country_event", data);
         self.snackbar = true;
       });
     },
