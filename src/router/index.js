@@ -147,6 +147,17 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/rates',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/rates',
+        name: 'RateSetup',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/RateSetup.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({

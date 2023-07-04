@@ -10,24 +10,15 @@
                 <v-icon icon="mdi-account-circle" size="x-large"></v-icon>
             </v-avatar>
 
-        <h4>E-Currency Setup</h4>
+        <h4>E-Currency Rate Setup</h4>
         </v-sheet>
 
         <v-card variant="outlined" class="px-4 py-8">
             <v-row>
-                <v-col cols="6" md="4">
-                    <AddCrypto></AddCrypto>
+                <v-col cols="6">
+                    
                 </v-col>
-                <v-col cols="6" md="4">
-                    <v-btn
-                     color="red"
-                     variant="flat"
-                     @click="openRateList()"
-                     >
-                     Setup rate
-                    </v-btn>
-                </v-col>
-                <v-col cols="6" md="4">
+                <v-col cols="12" md="6">
                     <v-text-field
                         v-model="search"
                         label="Search"
@@ -46,27 +37,21 @@
                 <template v-slot:item.sn="{ index }">
                     <span class="text-caption">{{ index + 1 }}</span>
                 </template>
-                <template v-slot:item.name="{ item }">
-                    <span class="text-caption">{{ item.value.name }}</span>
+                <template v-slot:item.start="{ item }">
+                    <span class="text-caption">{{ item.value.start }}</span>
                 </template>
-                <template v-slot:item.icon="{ item }">
-                    <v-avatar size="24">
-                        <v-img
-                            alt="user"
-                            :src="item.value.icon"
-                        ></v-img>
-                    </v-avatar>
+                <template v-slot:item.stop="{ item }">
+                    <span class="text-caption">{{ item.value.stop }}</span>
                 </template>
-
-                <!-- <template v-slot:item.priceNaira="{ item }">
-                    <span class="text-caption">₦{{ utils.formatMoney(item.value.priceNaira) }}</span>
-                </template> -->
+                <template v-slot:item.rate="{ item }">
+                    <span class="text-caption">₦{{ utils.formatMoney(item.value.rate) }}</span>
+                </template>
                 <template v-slot:item.date="{ item }">
                     <span class="text-caption">{{ utils.formatDate(item.value.date) }}</span>
                 </template>
 
                 <template v-slot:item.update="{ item }">
-                    <update-crypto :item="item.value" />
+                    <update-rate :item="item.value" />
                 </template>
             </v-data-table>
         </v-card>
@@ -91,24 +76,19 @@
   import { VDataTable } from 'vuetify/labs/VDataTable';
   import { Utils } from '@/js/Utils';
   import {APIRequest} from "@/js/APIRequest";
-  import UpdateCrypto from '@/components/UpdateCrypto.vue'
-  import AddCrypto from '@/components/AddCrypto.vue'
+  import UpdateRate from '@/components/UpdateRate.vue'
   import Loader from '@/components/Loader.vue';
 
   export default {
-    name: 'CryptoSetup',
+    name: 'RateSetup',
     components: {
         VDataTable,
-        UpdateCrypto,
-        AddCrypto,
+        UpdateRate,
         Loader
     },
     data: () => ({
         isLoading: false,
-        processEvent: "process_setup_event",
-        completeEvent: "complete_setup_event",
-        rejectEvent: "reject_setup_event",
-        updateEvent: "update-crypto",
+        updateEvent: "update-rate",
         utils: new Utils(),
         snackbar: false,
         text: ``,
@@ -120,39 +100,39 @@
             key: 'sn',
           },
           {
-            title: 'Icon',
-            key: 'icon',
+            title: 'Range start',
+            key: 'start',
           },
           {
-            title: 'Name',
-            key: 'name',
+            title: 'Range stop',
+            key: 'stop',
           },
-        //   {
-        //     title: 'Rate',
-        //     key: 'priceNaira',
-        //   },
+          {
+            title: 'Rate',
+            key: 'rate',
+          },
           { title: 'Date added', key: 'date' },
           { title: 'Update', key: 'update' },
         ],
         giftcardCategories: [],
     }),
     created() {
-        this.getGiftcardCategory();
+        this.getRate();
     },
     mounted() { 
         this.emitter.on(this.rejectEvent, value => {
             
         });
         this.emitter.on(this.updateEvent, value => {
-            this.getGiftcardCategory();
+            this.getRate();
         });
     },
     methods: {
-        getGiftcardCategory(){
+        getRate(){
             if(sessionStorage.getItem('login')){
                 let http = new APIRequest();
                 let self = this;
-                let url = `${http.baseUrl}/cryptos`;
+                let url = `${http.baseUrl}/rates`;
                 self.isLoading = true;
 
                 http.get(url, (err,data)=> {
@@ -170,8 +150,8 @@
             }
         },
 
-        openRateList(){
-            this.$router.push('/rates');
+        openCountryList(id){
+            this.$router.push('/giftcard-country/'+id);
         },
     },
   };
