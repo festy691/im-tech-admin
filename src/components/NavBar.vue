@@ -115,7 +115,35 @@ export default {
     }
   },
   created() {
-    this.items = [
+    this.getNavList();
+
+    this.getRecordCount();
+  },
+
+  mounted() { 
+    let self = this;
+      this.emitter.on("login", value => {
+        self.getRecordCount();
+        self.isAdmin = sessionStorage.getItem('access') === 'admin';
+        self.isLoggedIn = true;
+        self.getNavList();
+      });
+      this.emitter.on("logout", value => {
+        self.isLoggedIn = false;
+      });
+  },
+  methods: {
+    logOut() {
+      sessionStorage.clear();
+      sessionStorage.removeItem("login");
+      sessionStorage.removeItem("access");
+      sessionStorage.removeItem("email");
+      this.emitter.emit("logout", null);
+      this.$router.push('/login');
+    },
+
+    getNavList(){
+      this.items = [
         { title: 'Dashboard', icon: 'mdi-home-city', route: '/', count: 0 },
         { title: 'Giftcard Trades', icon: 'mdi-gift', route: '/giftcard-trades', count: 0 },
         { title: 'E-Currency Trades', icon: 'mdi-bitcoin', route: '/crypto-trades', count: 0 },
@@ -131,28 +159,7 @@ export default {
         this.isAdmin ? { title: 'Admin Activities', icon: 'mdi-map-marker', route: this.isAdmin ? '/activities' : '/no-permission', count: 0 } : {},
         // { title: 'News', icon: 'mdi-newspaper', route: '/news'},
         // { title: 'Account Statement', icon: 'mdi-cash-multiple', route: '/account-statement', count: 0 },
-    ];
-
-    this.getRecordCount();
-  },
-
-  mounted() { 
-    let self = this;
-      this.emitter.on("login", value => {
-        self.isLoggedIn = true;
-      });
-      this.emitter.on("logout", value => {
-        self.isLoggedIn = false;
-      });
-  },
-  methods: {
-    logOut() {
-      sessionStorage.clear();
-      sessionStorage.removeItem("login");
-      sessionStorage.removeItem("access");
-      sessionStorage.removeItem("email");
-      this.emitter.emit("logout", null);
-      this.$router.push('/login');
+      ];
     },
 
     getRecordCount(){
