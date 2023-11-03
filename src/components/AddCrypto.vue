@@ -103,16 +103,6 @@
                       ></v-text-field>
                     </v-col>
                     
-                    <v-col cols="6" md="6">
-                      <v-text-field
-                          label="Currency rate"
-                          placeholder="Rate"
-                          v-model="item.rate"
-                          variant="outlined"
-                          required
-                      ></v-text-field>
-                    </v-col>
-                    
                   </v-row>
   
                   <center>
@@ -215,7 +205,7 @@
         form.append('name',self.item.name);
         form.append('abbr',self.item.abbr);
         form.append('walletAddress',self.item.walletAddress);
-        form.append('rate',self.item.rate);
+        form.append('rate',700);
         form.append('image', self.image.file);
   
         let http = new APIRequest();

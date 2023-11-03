@@ -224,29 +224,6 @@
             }
         },
 
-        async creditUser(amount, userId){
-            let self = this;
-
-            let dataBody = {
-                "amount": amount,
-                "userId": userId
-            }
-
-            let http = new APIRequest();
-            self.isLoading = true;
-            let url = `${http.baseUrl}/transactions/credit`;
-            http.post(url, dataBody, (err,data) => {
-                if(err != null) {
-                self.isLoading = false;
-                console.log(err);
-                self.text = err.message == null ? err : err.message;
-                self.snackbar = true;
-                return;
-                }
-                console.log(data.success);
-            });
-        },
-
         updateStatus(id,status,index){
             let self = this;
             
@@ -280,7 +257,6 @@
                 if (status === 'processing'){
                     self.trades[index].loadingProcess = false;
                 } else if (status === 'completed'){
-                    await self.creditUser(self.trades[index].priceNaira, self.trades[index].user._id);
                     self.trades[index].loadingComplete = false;
                 } else {
                     self.trades[index].isLoadingReject = false;

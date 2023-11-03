@@ -3,7 +3,7 @@ export class APIRequest {
         this.http = new XMLHttpRequest();
     }
 
-    baseUrl = "https://imcard.one/api/v1";
+    baseUrl = "https://stingray-app-gxivk.ondigitalocean.app/api/v2";
 
     //Get request
     get = (url, callback) => {

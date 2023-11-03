@@ -113,16 +113,6 @@
                       ></v-text-field>
                     </v-col>
                     
-                    <v-col cols="6" md="6">
-                      <v-text-field
-                          label="Currency rate"
-                          placeholder="Rate"
-                          v-model="item.rate"
-                          variant="outlined"
-                          required
-                      ></v-text-field>
-                    </v-col>
-                    
                   </v-row>
   
                   <center>
@@ -217,7 +207,6 @@
         form.append('name',self.item.name);
         form.append('abbr',self.item.abbr);
         form.append('walletAddress',self.item.walletAddress);
-        form.append('rate',self.item.rate);
         if(self.item.atmAddress)form.append('atmAddress',self.item.atmAddress);
         if(self.image) form.append('image', self.image.file);
   

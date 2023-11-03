@@ -121,6 +121,7 @@ export default {
         { title: 'E-Currency Trades', icon: 'mdi-bitcoin', route: '/crypto-trades', count: 0 },
        // { title: 'Crypto trades', icon: 'mdi-bitcoin', route: '/crypto-trades', count: 3 },
         { title: 'Withdraw Request', icon: 'mdi-currency-usd', route: '/withdrawal', count: 0 },
+        { title: 'Bill Payments', icon: 'mdi-currency-usd', route: '/bills', count: 0 },
         { title: 'Trade History', icon: 'mdi-history', route: '/trade-history', count: 0 },
         { title: 'Giftcard Setup', icon: 'mdi-cog', route: '/setup' },
         { title: 'E-Currency Setup', icon: 'mdi-cog', route: '/crypto-setup' },

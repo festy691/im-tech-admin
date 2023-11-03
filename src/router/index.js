@@ -50,6 +50,17 @@ const routes = [
     ],
   },
   {
+    path: '/bills',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/bills',
+        name: 'Bills',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/BillPaymentHistory.vue'),
+      },
+    ],
+  },
+  {
     path: '/trade-history',
     component: () => import('@/layouts/default/Default.vue'),
     children: [
