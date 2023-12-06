@@ -49,7 +49,7 @@
                             </tr>
                             <tr>
                                 <td class="text-left">Currency name</td>
-                                <td class="text-right">{{ order.item }}</td>
+                                <td class="text-right">{{ order.crypto ? order.crypto.name : order.item }}</td>
                             </tr>
                             <tr>
                                 <td class="text-left">Address type</td>

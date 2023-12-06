@@ -81,6 +81,20 @@
                                             </v-card>
                                             </v-col>
                                         </v-row>
+
+                                        <v-row>
+                                            <v-col cols="6" md="6" v-for="(file, index) in order.receip" :key="index">
+                                            <v-card class="mx-auto" flat>
+                                                <v-card
+                                                    class="white--text align-end"
+                                                    color="grey lighten-4"
+                                                    variant="flat"
+                                                    height="60">
+                                                </v-card>
+                                                <v-card-actions><view-image :image="file"></view-image></v-card-actions>
+                                            </v-card>
+                                            </v-col>
+                                        </v-row>
                                     </template>
 
                                     <div v-else-if="order.cardType === 'E-Card' || order.cardType === 'E-Code'">

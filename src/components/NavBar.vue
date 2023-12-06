@@ -181,7 +181,7 @@ export default {
 
               self.items[1].count = data.salesCount;
               self.items[2].count = data.cryptoSalesCount || 0;
-              if(self.isAdmin) self.items[9].count = data.kycCount;
+              if(self.isAdmin) self.items[10].count = data.kycCount;
               self.items[3].count = data.requestCount;
             });
         }
