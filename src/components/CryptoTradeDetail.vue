@@ -56,6 +56,10 @@
                                 <td class="text-right">{{ order.addressType }}</td>
                             </tr>
                             <tr>
+                                <td class="text-left">Wallet address</td>
+                                <td class="text-right">{{ order.walletAddress }}</td>
+                            </tr>
+                            <tr>
                                 <td class="text-left">Amount USD</td>
                                 <td class="text-right">${{utils.formatMoney(order.priceDollar)}}</td>
                             </tr>
