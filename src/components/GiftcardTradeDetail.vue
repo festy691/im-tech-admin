@@ -17,11 +17,13 @@
                 
                 </template>
         
-                <v-card>
+                <v-card class="py-4">
                 <v-card-title class="text-h5 grey lighten-2 text-center">
                     Trade Details
                 </v-card-title>
         
+                <addReceipt v-if="order.status !== 'completed' && order.status !== 'rejected'" :item="order"/>
+
                 <v-card-text>
                     <v-table>
                         <thead>
@@ -49,7 +51,7 @@
                             </tr>
                             <tr>
                                 <td class="text-left">Giftcard Category</td>
-                                <td class="text-right">{{ order.itemDescription }}</td>
+                                <td class="text-right">{{ order.category.name }}</td>
                             </tr>
                             <tr>
                                 <td class="text-left">Giftcard Country</td>
@@ -63,6 +65,17 @@
                                 <td class="text-left">Amount</td>
                                 <td class="text-right">₦{{utils.formatMoney(order.priceNaira)}}</td>
                             </tr>
+
+                            <tr>
+                                <td class="text-left">Amount received</td>
+                                <td class="text-right">${{utils.formatMoney(order.priceReceived || order.priceDollar)}}</td>
+                            </tr>
+
+                            <tr v-if="order.earning != null">
+                                <td class="text-left">Earning</td>
+                                <td class="text-right">₦{{utils.formatMoney(order.earning)}}</td>
+                            </tr>
+
                             <tr>
                                 <div class="py-4">
 
@@ -111,6 +124,7 @@
                         </tbody>
                     </v-table>
                 </v-card-text>
+
                 </v-card>
             </v-dialog>
         </v-btn>
@@ -120,10 +134,11 @@
   <script>
   import { Utils } from '@/js/Utils';
   import ViewImage from './ViewImage.vue';
+  import AddReceipt from './UpdateCardReceipt.vue'
   
   export default {
     name: "GiftcardTradeDetail",
-    components: {ViewImage},
+    components: {ViewImage, AddReceipt},
     props: {
       order: Object
     },

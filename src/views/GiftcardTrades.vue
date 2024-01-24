@@ -40,8 +40,8 @@
                 <template v-slot:item.user.name="{ item }">
                     <span class="text-caption">{{ item.value.user.name }}</span>
                 </template>
-                <template v-slot:item.itemDescription="{ item }">
-                    <span class="text-caption">{{ item.value.itemDescription }}</span>
+                <template v-slot:item.category="{ item }">
+                    <span class="text-caption">{{ item.value.category.name }}</span>
                 </template>
                 <template v-slot:item.priceNaira="{ item }">
                     <span class="text-caption">₦{{ utils.formatMoney(item.value.priceNaira) }}</span>
@@ -172,7 +172,7 @@
           },
           { 
             title: 'Type', 
-            key: 'itemDescription' 
+            key: 'category' 
           },
           { 
             title: 'Amount', 

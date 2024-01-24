@@ -22,6 +22,8 @@
                     Trade Details
                 </v-card-title>
         
+                <addReceipt v-if="order.status !== 'completed' && order.status !== 'rejected'" :item="order"/>
+
                 <v-card-text>
                     <v-table>
                         <thead>
@@ -67,6 +69,17 @@
                                 <td class="text-left">Amount</td>
                                 <td class="text-right">₦{{utils.formatMoney(order.priceNaira)}}</td>
                             </tr>
+
+                            <tr>
+                                <td class="text-left">Amount received</td>
+                                <td class="text-right">${{utils.formatMoney(order.priceReceived || order.priceDollar)}}</td>
+                            </tr>
+
+                            <tr v-if="order.earning != null">
+                                <td class="text-left">Earning</td>
+                                <td class="text-right">₦{{utils.formatMoney(order.earning)}}</td>
+                            </tr>
+
                             <tr>
                                 <div class="py-4">
 
@@ -101,10 +114,11 @@
   <script>
   import { Utils } from '@/js/Utils';
   import ViewImage from './ViewImage.vue';
+  import AddReceipt from './UpdateCurrencyReceipt.vue'
   
   export default {
     name: "CryptoTradeDetail",
-    components: {ViewImage},
+    components: {ViewImage, AddReceipt},
     props: {
       order: Object
     },
