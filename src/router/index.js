@@ -169,6 +169,22 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/news',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/news',
+        name: 'News',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/News.vue'),
+      },
+      {
+        path: '/news-detail/:id',
+        name: 'NewsDetail',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/NewsDetail.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({

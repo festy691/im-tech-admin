@@ -157,7 +157,7 @@ export default {
         this.isAdmin ? { title: 'Users', icon: 'mdi-account-group-outline', route: this.isAdmin ? '/users' : '/no-permission', count: 0 } : {},
         this.isAdmin ? { title: 'Pending Verification', icon: 'mdi-card-account-details', route: this.isAdmin ? '/verification' : '/no-permission', count: 0 } : {},
         this.isAdmin ? { title: 'Admin Activities', icon: 'mdi-map-marker', route: this.isAdmin ? '/activities' : '/no-permission', count: 0 } : {},
-        // { title: 'News', icon: 'mdi-newspaper', route: '/news'},
+        { title: 'News', icon: 'mdi-newspaper', route: '/news'},
         // { title: 'Account Statement', icon: 'mdi-cash-multiple', route: '/account-statement', count: 0 },
       ];
     },
